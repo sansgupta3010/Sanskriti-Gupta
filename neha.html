@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neha - Student Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin:0; background:#f4f6f9; }
+    header { background:#00796b; color:white; padding:12px 20px; display:flex; justify-content:space-between; align-items:center; }
+    header nav a { color:white; margin-left:15px; text-decoration:none; font-weight:bold; }
+    .container { padding:20px; }
+    .card { background:white; padding:20px; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.1); margin-bottom:20px; }
+    .remedial { background:#e8f5e9; padding:12px; border-left:5px solid #388e3c; border-radius:6px; }
+    .chart-container { width: 300px; margin: auto; } /* chart smaller */
+  </style>
+</head>
+<body>
+  <header>
+    <h2>👩‍🎓 Neha - Student Dashboard</h2>
+    <nav>
+      <a href="teacher.html">📊 Teacher Dashboard</a>
+      <a href="home.html">🏠 Home</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <!-- Engagement -->
+    <div class="card">
+      <h3>📌 Engagement</h3>
+      <div class="chart-container">
+        <canvas id="engagementChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Subject Scores -->
+    <div class="card">
+      <h3>📚 Subject Performance</h3>
+      <canvas id="subjectChart"></canvas>
+    </div>
+
+    <!-- Remedial Notes -->
+    <div class="card">
+      <h3>📝 Remedial Notes</h3>
+      <div id="remedialNotes" class="remedial"></div>
+    </div>
+  </div>
+
+  <script>
+    // Engagement
+    new Chart(document.getElementById("engagementChart"), {
+      type: 'doughnut',
+      data: {
+        labels: ["Engaged", "Confused", "Distracted"],
+        datasets: [{ data: [75, 15, 10], backgroundColor: ["green","orange","red"] }]
+      },
+      options: { 
+        plugins: { legend: { position: "bottom" } },
+        responsive: true,
+        maintainAspectRatio: false
+      }
+    });
+
+    // Subject performance
+    const subjects = ["Math","Science","English","History"];
+    const scores = [55,82,68,90]; // Neha's example scores
+
+    new Chart(document.getElementById("subjectChart"), {
+      type: 'bar',
+      data: {
+        labels: subjects,
+        datasets: [{ label:"Performance (%)", data:scores, backgroundColor:["#e53935","#43a047","#fb8c00","#1e88e5"] }]
+      },
+      options: { scales: { y: { beginAtZero:true, max:100 } } }
+    });
+
+    // Auto remedial notes
+    let notes = "";
+    subjects.forEach((sub,i)=>{
+      if(scores[i]<60){
+        notes += `<p><b>${sub}:</b> Falling behind. <br> 🔹 Revise class notes twice a week. <br> 🔹 Solve 5 practice problems daily. <br> 🔹 Attend teacher’s remedial session every Friday.</p>`;
+      }
+    });
+    document.getElementById("remedialNotes").innerHTML = notes || "✅ Neha is doing well in all subjects!";
+  </script>
+</body>
+</html>
