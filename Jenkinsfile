@@ -2,11 +2,17 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "my-app"
-        CONTAINER_NAME = "my-app-container"
+        IMAGE_NAME = "sanskriti-app"
+        CONTAINER_NAME = "sanskriti-container"
     }
 
     stages {
+
+        stage('Checkout Code') {
+            steps {
+                git url: 'https://github.com/sansgupta3010/Sanskriti-Gupta.git', branch: 'main'
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
