@@ -2,13 +2,15 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "sanskriti-app"
-        CONTAINER_NAME = "sanskriti-container"
+    PATH = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
+    IMAGE_NAME = "sanskriti-app"
+    CONTAINER_NAME = "sanskriti-container"
+
     }
 
     stages {
 
-        stage('Checkout Code') {
+        stage('Checkout Code') 
             steps {
                 git url: 'https://github.com/sansgupta3010/Sanskriti-Gupta.git', branch: 'main'
             }
